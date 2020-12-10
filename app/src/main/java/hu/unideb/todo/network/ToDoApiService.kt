@@ -20,8 +20,7 @@ private val retrofit = Retrofit.Builder()
 
 interface ToDoApiService {
     @GET("todos")
-    fun getProperties():
-            Call<List<ToDoDto>>
+    suspend fun getProperties(): ToDoDtoContainer
 }
 
 object ToDoApi {
