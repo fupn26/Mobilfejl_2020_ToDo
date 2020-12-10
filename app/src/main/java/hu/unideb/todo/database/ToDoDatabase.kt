@@ -1,4 +1,4 @@
-package hu.unideb.todo.dao
+package hu.unideb.todo.database
 
 import android.content.Context
 import androidx.room.Database

@@ -1,4 +1,4 @@
-package hu.unideb.todo.dao
+package hu.unideb.todo.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

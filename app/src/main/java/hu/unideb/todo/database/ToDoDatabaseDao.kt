@@ -1,4 +1,4 @@
-package hu.unideb.todo.dao
+package hu.unideb.todo.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
