@@ -1,7 +1,7 @@
 package hu.unideb.todo.network
 
 import com.squareup.moshi.JsonClass
-import hu.unideb.todo.model.ToDoModel
+import hu.unideb.todo.database.ToDoEntity
 
 @JsonClass(generateAdapter = true)
 data class ToDoDtoContainer(val toDos: List<ToDoDto>)
@@ -14,9 +14,9 @@ data class ToDoDto(
     val completed: Boolean
 )
 
-fun ToDoDtoContainer.asDomainModel(): List<ToDoModel> {
+fun ToDoDtoContainer.asDomainModel(): List<ToDoEntity> {
     return toDos.map {
-        ToDoModel(
+        ToDoEntity(
             toDoId = it.id,
             title = it.title,
             completed = it.completed
