@@ -1,6 +1,6 @@
 package hu.unideb.todo.network
 
-data class MarsProperty(
+data class ToDoDto(
     val userId: Long,
     val id: Long,
     val title: String,
