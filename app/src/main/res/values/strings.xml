@@ -2,4 +2,6 @@
     <string name="app_name">ToDo</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_button_name">Add</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="save_button_text">Save</string>
 </resources>
