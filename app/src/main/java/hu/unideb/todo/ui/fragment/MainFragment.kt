@@ -38,7 +38,7 @@ class MainFragment : Fragment() {
             R.layout.fragment_main,container,false)
 
         binding.addButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_mainFragment_to_addFragment)
+            view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddFragment())
         }
 
         val adapter = ToDoAdapter(ToDoListener { toDoId ->
@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
 //                this.findNavController().navigate(
 //                    SleepTrackerFragmentDirections
 //                        .actionSleepTrackerFragmentToSleepDetailFragment(night))
-                this.findNavController().navigate(R.id.action_mainFragment_to_updateFragment)
+                this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToUpdateFragment())
                 viewModel.onSleepDetailNavigated()
             }
         })

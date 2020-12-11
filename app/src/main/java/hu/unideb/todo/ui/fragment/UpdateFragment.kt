@@ -26,14 +26,14 @@ class UpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
             R.layout.fragment_update,container,false)
 
         binding.updateButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_updateFragment_to_mainFragment)
+            view.findNavController().navigate(UpdateFragmentDirections.actionUpdateFragmentToMainFragment())
             val inputMethodManager = this.requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
         }
 
         binding.updateCancelButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_updateFragment_to_mainFragment)
+            view.findNavController().navigate(UpdateFragmentDirections.actionUpdateFragmentToMainFragment())
             val inputMethodManager = this.requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }

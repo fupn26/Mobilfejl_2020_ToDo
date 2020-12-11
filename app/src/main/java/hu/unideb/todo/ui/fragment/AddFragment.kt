@@ -22,13 +22,13 @@ class AddFragment : Fragment() {
             R.layout.fragment_add,container,false)
 
         binding.saveButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_addFragment_to_mainFragment)
+            view.findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
             val inputMethodManager = this.requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
 
         binding.cancelButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_addFragment_to_mainFragment)
+            view.findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
             val inputMethodManager = this.requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
