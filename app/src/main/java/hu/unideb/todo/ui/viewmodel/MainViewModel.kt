@@ -1,10 +1,7 @@
 package hu.unideb.todo.ui.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import hu.unideb.todo.database.ToDoDatabase.Companion.getDatabaseInstance
 import hu.unideb.todo.repository.ToDoRepository
 import kotlinx.coroutines.launch
@@ -15,6 +12,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val toDoRepository = ToDoRepository(getDatabaseInstance(application))
     val toDoList = toDoRepository.toDos
+
+    private val _navigateToUpdateToDo = MutableLiveData<Long>()
+    val navigateToUpdateToDo
+        get() = _navigateToUpdateToDo
 
     init {
         refreshDataFromRepository()
@@ -29,6 +30,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 Timber.e("Internet error")
             }
         }
+    }
+
+    fun onToDoClicked(id: Long) {
+        _navigateToUpdateToDo.value = id
+    }
+
+    fun onSleepDetailNavigated() {
+        _navigateToUpdateToDo.value = null
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

@@ -2,15 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-                name="todo"
+                name="toDo"
                 type="hu.unideb.todo.model.ToDoModel"/>
+        <variable
+                name="clickListener"
+                type="hu.unideb.todo.util.ToDoListener"/>
     </data>
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> clickListener.onClick(toDo)}"
+            app:toDoCardBackgroundColor="@{toDo}"
             app:cardCornerRadius="5dp"
             app:cardElevation="5dp"
-            app:toDoCardBackgroundColor="@{todo}"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
     >
@@ -19,7 +23,7 @@
 
             <TextView
                     android:id="@+id/id_text"
-                    app:toDoIdString="@{todo}"
+                    app:toDoIdString="@{toDo}"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
@@ -32,7 +36,7 @@
 
             <TextView
                     android:id="@+id/title_text"
-                    android:text="@{todo.title}"
+                    android:text="@{toDo.title}"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"

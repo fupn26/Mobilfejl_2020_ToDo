@@ -2,15 +2,12 @@ package hu.unideb.todo.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.google.android.material.card.MaterialCardView
-import hu.unideb.todo.R
 import hu.unideb.todo.databinding.TodoItemViewBinding
 import hu.unideb.todo.model.ToDoModel
 
-class ToDoAdapter : ListAdapter<ToDoModel, ToDoItemViewHolder>(ToDoDiffCallback()) {
+class ToDoAdapter(val clickListener: ToDoListener) : ListAdapter<ToDoModel, ToDoItemViewHolder>(ToDoDiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -25,7 +22,7 @@ class ToDoAdapter : ListAdapter<ToDoModel, ToDoItemViewHolder>(ToDoDiffCallback(
 
     override fun onBindViewHolder(holder: ToDoItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
 }
@@ -41,6 +38,6 @@ class ToDoDiffCallback : DiffUtil.ItemCallback<ToDoModel>() {
 
 }
 
-class ToDoListener() {
-
+class ToDoListener(val clickListener: (toDoId: Long) -> Unit) {
+    fun onClick(toDo: ToDoModel) = clickListener(toDo.toDoId)
 }
