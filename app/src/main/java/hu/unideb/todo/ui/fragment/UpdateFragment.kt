@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import hu.unideb.todo.R
-import hu.unideb.todo.databinding.FragmentMainBinding
+import hu.unideb.todo.databinding.FragmentUpdateBinding
 
 class UpdateFragment : Fragment() {
 
@@ -15,8 +16,16 @@ class UpdateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentMainBinding>(inflater,
+        val binding = DataBindingUtil.inflate<FragmentUpdateBinding>(inflater,
             R.layout.fragment_update,container,false)
+
+        binding.updateButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_updateFragment_to_mainFragment)
+        }
+
+        binding.updateCancelButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_updateFragment_to_mainFragment)
+        }
 
         return binding.root;
     }

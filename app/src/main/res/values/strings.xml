@@ -5,4 +5,5 @@
     <string name="cancel_button_text">Cancel</string>
     <string name="save_button_text">Save</string>
     <string name="update_button_text">Update</string>
+    <string name="task_input_hint">What is the task?</string>
 </resources>
