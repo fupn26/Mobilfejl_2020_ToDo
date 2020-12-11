@@ -4,9 +4,6 @@ import com.squareup.moshi.JsonClass
 import hu.unideb.todo.database.ToDoEntity
 
 @JsonClass(generateAdapter = true)
-data class ToDoDtoContainer(val toDos: List<ToDoDto>)
-
-@JsonClass(generateAdapter = true)
 data class ToDoDto(
     val userId: Long,
     val id: Long,
@@ -14,8 +11,8 @@ data class ToDoDto(
     val completed: Boolean
 )
 
-fun ToDoDtoContainer.asDomainModel(): List<ToDoEntity> {
-    return toDos.map {
+fun List<ToDoDto>.asDomainModel(): List<ToDoEntity> {
+    return map {
         ToDoEntity(
             toDoId = it.id,
             title = it.title,

@@ -18,7 +18,7 @@ class ToDoAdapter : ListAdapter<ToDoModel, ToDoItemViewHolder>(ToDoDiffCallback(
         val view = layoutInflater
             .inflate(R.layout.todo_item_view,
                 parent, false)
-        return ToDoItemViewHolder(view)
+        return ToDoItemViewHolder(view as MaterialCardView)
     }
 
     override fun onBindViewHolder(holder: ToDoItemViewHolder, position: Int) {
@@ -26,10 +26,10 @@ class ToDoAdapter : ListAdapter<ToDoModel, ToDoItemViewHolder>(ToDoDiffCallback(
         holder.idText.text = item.toDoId.toString()
         holder.title.text = item.title
 
-        if (item.completed)
-            holder.container.setBackgroundColor(R.color.lightGreen)
-        else
-            holder.container.setBackgroundColor(R.color.lightRed)
+//        if (item.completed)
+//            holder.container.setBackgroundColor(R.color.lightGreen)
+//        else
+//            holder.container.setBackgroundColor(R.color.lightRed)
     }
 
 }

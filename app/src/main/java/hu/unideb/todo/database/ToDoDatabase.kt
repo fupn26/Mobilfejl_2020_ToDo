@@ -14,7 +14,7 @@ abstract class ToDoDatabase : RoomDatabase() {
 
         private lateinit var INSTANCE: ToDoDatabase
 
-        fun getInstance(context: Context): ToDoDatabase {
+        fun getDatabaseInstance(context: Context): ToDoDatabase {
             synchronized(this) {
 
                 if (!::INSTANCE.isInitialized) {

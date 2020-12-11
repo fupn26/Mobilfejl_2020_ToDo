@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import hu.unideb.todo.R
 
-class ToDoItemViewHolder(val view: View): RecyclerView.ViewHolder(view) {
-    val container: View = view
+class ToDoItemViewHolder(val view: MaterialCardView): RecyclerView.ViewHolder(view) {
+//    val container: View = view
     val idText: TextView = view.findViewById(R.id.id_text)
     val title: TextView = view.findViewById(R.id.title_text)
 }
