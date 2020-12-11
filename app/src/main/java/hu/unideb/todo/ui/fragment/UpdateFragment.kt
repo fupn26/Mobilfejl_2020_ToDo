@@ -17,6 +17,7 @@ import hu.unideb.todo.databinding.FragmentUpdateBinding
 class UpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var completedStatus: Boolean = false
+    private var toDoId: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +25,9 @@ class UpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentUpdateBinding>(inflater,
             R.layout.fragment_update,container,false)
+
+        val args = UpdateFragmentArgs.fromBundle(requireArguments())
+        toDoId = args.toDoId
 
         binding.updateButton.setOnClickListener { view: View ->
             view.findNavController().navigate(UpdateFragmentDirections.actionUpdateFragmentToMainFragment())

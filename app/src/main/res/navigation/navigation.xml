@@ -25,5 +25,6 @@
               android:label="UpdateFragment"
               tools:layout="@layout/fragment_add">
         <action android:id="@+id/action_updateFragment_to_mainFragment" app:destination="@id/mainFragment"/>
+        <argument android:name="toDoId" app:argType="long"/>
     </fragment>
 </navigation>
