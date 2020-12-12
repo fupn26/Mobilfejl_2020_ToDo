@@ -41,3 +41,16 @@ class ToDoDiffCallback : DiffUtil.ItemCallback<ToDoModel>() {
 class ToDoListener(val clickListener: (toDoId: Long) -> Unit) {
     fun onClick(toDo: ToDoModel) = toDo.toDoId?.let { clickListener(it) }
 }
+
+sealed class DataItem {
+    abstract val id: Long
+
+    data class ToDoItem(val toDo: ToDoModel): DataItem() {
+        override val id: Long = toDo.toDoId!!
+    }
+
+    object Header: DataItem() {
+        override val id: Long
+            get() = Long.MIN_VALUE
+    }
+}
