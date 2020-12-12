@@ -26,6 +26,12 @@ class ToDoRepository(private val database: ToDoDatabase) {
         }
     }
 
+    suspend fun getToDoById(id: Long): ToDoModel? =
+        withContext(Dispatchers.IO) {
+            Timber.d("get ToDo by Id: $id")
+            return@withContext (database.toDoDatabaseDao.findById(id))?.asDomainModel()
+        }
+
     suspend fun insertToDo(toDo: ToDoModel) {
         withContext(Dispatchers.IO) {
             Timber.d("insertToDo function is called")

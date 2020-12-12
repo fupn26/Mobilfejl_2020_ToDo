@@ -16,6 +16,12 @@ data class ToDoEntity(
     var completed: Boolean = false
 )
 
+fun ToDoEntity.asDomainModel() = ToDoModel(
+    toDoId = this.toDoId,
+    title = this.title,
+    completed = this.completed
+)
+
 fun List<ToDoEntity>.asDomainModel(): List<ToDoModel> {
     return map {
         ToDoModel(
