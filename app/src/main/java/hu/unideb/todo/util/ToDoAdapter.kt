@@ -39,5 +39,5 @@ class ToDoDiffCallback : DiffUtil.ItemCallback<ToDoModel>() {
 }
 
 class ToDoListener(val clickListener: (toDoId: Long) -> Unit) {
-    fun onClick(toDo: ToDoModel) = clickListener(toDo.toDoId)
+    fun onClick(toDo: ToDoModel) = toDo.toDoId?.let { clickListener(it) }
 }

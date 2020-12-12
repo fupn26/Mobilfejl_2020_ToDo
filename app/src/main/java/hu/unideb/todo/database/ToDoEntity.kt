@@ -9,7 +9,7 @@ import hu.unideb.todo.model.ToDoModel
 data class ToDoEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var toDoId: Long = 0L,
+    var toDoId: Long? = 0L,
 
     var title: String = "",
 

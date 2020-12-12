@@ -3,7 +3,7 @@ package hu.unideb.todo.model
 import hu.unideb.todo.database.ToDoEntity
 
 data class ToDoModel(
-    var toDoId: Long,
+    var toDoId: Long?,
     var title: String,
     var completed: Boolean
 )

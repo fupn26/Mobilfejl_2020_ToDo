@@ -8,11 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import hu.unideb.todo.R
 import hu.unideb.todo.databinding.FragmentAddBinding
+import hu.unideb.todo.model.ToDoModel
+import hu.unideb.todo.ui.viewmodel.AddViewModel
 
 class AddFragment : Fragment() {
+
+    private lateinit var viewModel: AddViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +26,16 @@ class AddFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentAddBinding>(inflater,
             R.layout.fragment_add,container,false)
 
+        viewModel = ViewModelProvider(this, AddViewModel.Factory(
+            requireNotNull(this.activity).application)).get(AddViewModel::class.java)
+
         binding.saveButton.setOnClickListener { view: View ->
+            viewModel.addToDo(ToDoModel(
+                null,
+                binding.editTextTextPersonName.text.toString(),
+                false
+            ))
+
             view.findNavController().navigate(AddFragmentDirections.actionAddFragmentToMainFragment())
             val inputMethodManager = this.requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
