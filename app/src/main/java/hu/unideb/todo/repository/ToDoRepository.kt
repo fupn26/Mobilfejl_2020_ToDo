@@ -1,6 +1,7 @@
 package hu.unideb.todo.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.map
 import hu.unideb.todo.database.ToDoDatabase
 import hu.unideb.todo.database.asDomainModel
@@ -18,6 +19,10 @@ class ToDoRepository(private val database: ToDoDatabase) {
         it.asDomainModel()
     }
 
+    private val _chosenToDo = MutableLiveData<ToDoModel>()
+    val chosenToDo: LiveData<ToDoModel>
+        get() = _chosenToDo
+
     suspend fun refreshToDos() {
         withContext(Dispatchers.IO) {
             Timber.d("refreshToDos function is called")
@@ -26,11 +31,19 @@ class ToDoRepository(private val database: ToDoDatabase) {
         }
     }
 
-    suspend fun getToDoById(id: Long): ToDoModel? =
+    suspend fun getToDoById(id: Long) {
         withContext(Dispatchers.IO) {
             Timber.d("get ToDo by Id: $id")
-            return@withContext (database.toDoDatabaseDao.findById(id))?.asDomainModel()
+            _chosenToDo.postValue(database.toDoDatabaseDao.findById(id)?.asDomainModel())
         }
+    }
+
+    suspend fun updateToDo(toDo: ToDoModel) {
+        withContext(Dispatchers.IO) {
+            Timber.d("update ToDo: $toDo")
+            database.toDoDatabaseDao.update(toDo.asToDoEntity())
+        }
+    }
 
     suspend fun insertToDo(toDo: ToDoModel) {
         withContext(Dispatchers.IO) {
