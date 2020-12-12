@@ -1,5 +1,6 @@
 package hu.unideb.todo.util
 
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.BindingAdapter
@@ -32,5 +33,15 @@ fun MaterialCardView.setCardBackgroundColorFromBoolean(item: ToDoModel?) {
             setCardBackgroundColor(getColor(context, R.color.lightGreen))
         else
             setCardBackgroundColor(getColor(context, R.color.lightRed))
+    }
+}
+
+@BindingAdapter("chosenItemSetInSpinner")
+fun Spinner.setChosenItemInSpinner(item: ToDoModel?) {
+    item?.let {
+        if (item.completed)
+            setSelection(1)
+        else
+            setSelection(0)
     }
 }

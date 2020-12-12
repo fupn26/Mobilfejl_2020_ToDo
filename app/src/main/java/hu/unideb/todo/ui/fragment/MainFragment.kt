@@ -54,9 +54,6 @@ class MainFragment : Fragment() {
 
         viewModel.navigateToUpdateToDo.observe(this, Observer { toDoId ->
             toDoId?.let {
-//                this.findNavController().navigate(
-//                    SleepTrackerFragmentDirections
-//                        .actionSleepTrackerFragmentToSleepDetailFragment(night))
                 this.findNavController().navigate(
                     MainFragmentDirections.
                     actionMainFragmentToUpdateFragment(toDoId))

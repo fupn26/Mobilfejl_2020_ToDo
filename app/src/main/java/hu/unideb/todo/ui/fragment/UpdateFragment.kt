@@ -10,14 +10,16 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import hu.unideb.todo.R
 import hu.unideb.todo.databinding.FragmentUpdateBinding
+import hu.unideb.todo.ui.viewmodel.UpdateViewModel
 
 class UpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    private var completedStatus: Boolean = false
-    private var toDoId: Long = 0
+    private lateinit var viewModel: UpdateViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +29,13 @@ class UpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
             R.layout.fragment_update,container,false)
 
         val args = UpdateFragmentArgs.fromBundle(requireArguments())
-        toDoId = args.toDoId
+        viewModel = ViewModelProvider(this, UpdateViewModel.Factory(
+            requireNotNull(this.activity).application,
+            args.toDoId)).get(UpdateViewModel::class.java)
+
+        viewModel.toDo.observe(viewLifecycleOwner, Observer { newToDo ->
+            binding.toDo = newToDo
+        })
 
         binding.updateButton.setOnClickListener { view: View ->
             view.findNavController().navigate(UpdateFragmentDirections.actionUpdateFragmentToMainFragment())
