@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import hu.unideb.todo.database.ToDoDatabase
+import hu.unideb.todo.model.ToDoModel
 import hu.unideb.todo.repository.ToDoRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -18,6 +19,12 @@ class UpdateViewModel(application: Application, toDoId: Long): AndroidViewModel(
     init {
         refreshToDoObjectFromRepository(toDoId)
         Timber.i("UpdateViewModel created")
+    }
+
+    fun updateToDo(toDo: ToDoModel) {
+        viewModelScope.launch {
+            toDoRepository.updateToDo(toDo)
+        }
     }
 
     private fun refreshToDoObjectFromRepository(toDoId: Long) {

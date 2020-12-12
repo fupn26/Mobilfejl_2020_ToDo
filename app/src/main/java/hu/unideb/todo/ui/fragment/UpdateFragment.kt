@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import hu.unideb.todo.R
 import hu.unideb.todo.databinding.FragmentUpdateBinding
+import hu.unideb.todo.model.ToDoModel
 import hu.unideb.todo.ui.viewmodel.UpdateViewModel
 
 class UpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -38,10 +39,15 @@ class UpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
         })
 
         binding.updateButton.setOnClickListener { view: View ->
+            viewModel.updateToDo(ToDoModel(
+                binding.toDo!!.toDoId,
+                binding.updateTitleText.text.toString(),
+                binding.completedSpinner.selectedItemPosition.equals(1)
+            ))
             view.findNavController().navigate(UpdateFragmentDirections.actionUpdateFragmentToMainFragment())
             val inputMethodManager = this.requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-
+            binding.completedSpinner.selectedItemPosition
         }
 
         binding.updateCancelButton.setOnClickListener { view: View ->
