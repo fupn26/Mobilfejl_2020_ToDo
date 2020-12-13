@@ -47,7 +47,7 @@ class MainFragment : Fragment() {
         binding.todoList.adapter = adapter
         viewModel.toDoList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.addHeaderAndSubmitList(it)
             }
         })
 

@@ -1,38 +1,73 @@
 package hu.unideb.todo.util
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import hu.unideb.todo.databinding.TodoItemViewBinding
 import hu.unideb.todo.model.ToDoModel
+import hu.unideb.todo.util.TextViewHolder.Companion.from
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class ToDoAdapter(val clickListener: ToDoListener) : ListAdapter<ToDoModel, ToDoItemViewHolder>(ToDoDiffCallback()) {
+private val ITEM_VIEW_TYPE_HEADER = 0
+private val ITEM_VIEW_TYPE_ITEM = 1
+
+class ToDoAdapter(val clickListener: ToDoListener) : ListAdapter<DataItem, RecyclerView.ViewHolder>(ToDoDiffCallback()) {
+
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): ToDoItemViewHolder {
-        val layoutInflater =
-            LayoutInflater.from(parent.context)
-        val binding =
-            TodoItemViewBinding.inflate(layoutInflater, parent, false)
-
-        return ToDoItemViewHolder(binding)
+    ): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
+            ITEM_VIEW_TYPE_ITEM -> ToDoItemViewHolder.from(parent)
+            else -> throw ClassCastException("Unknown viewType ${viewType}")
+        }
     }
 
-    override fun onBindViewHolder(holder: ToDoItemViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item, clickListener)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is ToDoItemViewHolder -> {
+                val item = getItem(position) as DataItem.ToDoItem
+                holder.bind(item.toDo, clickListener)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is DataItem.Header -> ITEM_VIEW_TYPE_HEADER
+            is DataItem.ToDoItem -> ITEM_VIEW_TYPE_ITEM
+        }
+    }
+
+    fun addHeaderAndSubmitList(list: List<ToDoModel>?) {
+        adapterScope.launch {
+            val items = when (list) {
+                null -> listOf(DataItem.Header)
+                else -> listOf(DataItem.Header) + list.map { DataItem.ToDoItem(it) }
+            }
+
+            withContext(Dispatchers.Main) {
+                submitList(items)
+            }
+        }
     }
 
 }
 
-class ToDoDiffCallback : DiffUtil.ItemCallback<ToDoModel>() {
-    override fun areItemsTheSame(oldItem: ToDoModel, newItem: ToDoModel): Boolean {
-        return oldItem.toDoId == newItem.toDoId;
+class ToDoDiffCallback : DiffUtil.ItemCallback<DataItem>() {
+    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+        return oldItem.id == newItem.id;
     }
-
-    override fun areContentsTheSame(oldItem: ToDoModel, newItem: ToDoModel): Boolean {
+    @SuppressLint("DiffUtilEquals")
+    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem == newItem
     }
 

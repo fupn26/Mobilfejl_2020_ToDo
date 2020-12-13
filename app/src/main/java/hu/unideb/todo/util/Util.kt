@@ -1,5 +1,8 @@
 package hu.unideb.todo.util
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
@@ -16,6 +19,24 @@ class ToDoItemViewHolder(val binding: @NotNull TodoItemViewBinding): RecyclerVie
         binding.toDo = item
         binding.clickListener = clickListener
         binding.executePendingBindings()
+    }
+
+    companion object {
+        fun from(parent: ViewGroup): ToDoItemViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = TodoItemViewBinding.inflate(layoutInflater, parent, false)
+            return ToDoItemViewHolder(binding)
+        }
+    }
+}
+
+class TextViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    companion object {
+        fun from(parent: ViewGroup): TextViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val view = layoutInflater.inflate(R.layout.todo_list_header, parent, false)
+            return TextViewHolder(view)
+        }
     }
 }
 
