@@ -36,7 +36,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         _navigateToUpdateToDo.value = id
     }
 
-    fun onSleepDetailNavigated() {
+    fun onUpdateToDoNavigated() {
         _navigateToUpdateToDo.value = null
     }
 

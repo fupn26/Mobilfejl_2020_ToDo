@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
                 this.findNavController().navigate(
                     MainFragmentDirections.
                     actionMainFragmentToUpdateFragment(toDoId))
-                viewModel.onSleepDetailNavigated()
+                viewModel.onUpdateToDoNavigated()
             }
         })
 
